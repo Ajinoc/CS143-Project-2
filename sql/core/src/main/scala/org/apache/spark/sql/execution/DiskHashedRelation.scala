@@ -64,6 +64,12 @@ private[sql] class DiskPartition (
    */
   def insert(row: Row) = {
     // IMPLEMENT ME
+
+    data.add(row)
+    // Do we need to update chunkSizes too?
+
+    if (measurePartitionSize() > blockSize)
+      spillPartitionToDisk()
   }
 
   /**
@@ -107,12 +113,16 @@ private[sql] class DiskPartition (
 
       override def next() = {
         // IMPLEMENT ME
-        null
+
+        if (currentIterator.hasNext) {
+          currentIterator.next()
+        } else null
+
       }
 
       override def hasNext() = {
         // IMPLEMENT ME
-        false
+        currentIterator.hasNext
       }
 
       /**
@@ -123,6 +133,13 @@ private[sql] class DiskPartition (
        */
       private[this] def fetchNextChunk(): Boolean = {
         // IMPLEMENT ME
+
+        // Is this right??? wtf am i doing
+        if (chunkSizeIterator.hasNext) {
+          byteArray = CS143Utils.getNextChunkBytes(inStream, chunkSizeIterator.next(), byteArray)
+          true
+        }
+
         false
       }
     }
@@ -138,6 +155,18 @@ private[sql] class DiskPartition (
   def closeInput() = {
     // IMPLEMENT ME
     inputClosed = true
+
+    // TODO: write unwritten data
+    if (chunkSizes.size != 0 && chunkSizes.get(chunkSizes.size - 1) == getBytesFromList(data).size) {
+      spillPartitionToDisk()
+      // Anything else besides spilling partition?
+    }
+
+    // Doing this conditional instead of above still only passes 1 test. *Shrug*
+   /* if (!writtenToDisk)
+      spillPartitionToDisk() */
+
+    outStream.close()
   }
 
 
