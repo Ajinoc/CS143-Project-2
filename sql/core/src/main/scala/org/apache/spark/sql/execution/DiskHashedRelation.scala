@@ -64,12 +64,22 @@ private[sql] class DiskPartition (
    */
   def insert(row: Row) = {
     // IMPLEMENT ME
+    if(!inputClosed) {
+      data.add(row)
+      // Do we need to update chunkSizes too? Nah... chunkSizes does a thing in the spillPartition... If we did it twice that could be weird.
 
-    data.add(row)
-    // Do we need to update chunkSizes too?
-
-    if (measurePartitionSize() > blockSize)
-      spillPartitionToDisk()
+      if (measurePartitionSize() > blockSize)
+      {
+        //Spill current partition, then make reset the partition.
+        data.remove(row)
+        spillPartitionToDisk()
+        data.clear()
+        data.add(row)
+      }
+    }
+    else
+      throw new SparkException("inputClosed=true. Cannot insert row at this time.")
+    
   }
 
   /**
@@ -122,7 +132,7 @@ private[sql] class DiskPartition (
 
       override def hasNext() = {
         // IMPLEMENT ME
-        currentIterator.hasNext
+        currentIterator.hasNext || fetchNextChunk //fetch the chunks for iterator
       }
 
       /**
@@ -135,12 +145,14 @@ private[sql] class DiskPartition (
         // IMPLEMENT ME
 
         // Is this right??? wtf am i doing
+        // Yeah u good just updated the iterator too lol
         if (chunkSizeIterator.hasNext) {
           byteArray = CS143Utils.getNextChunkBytes(inStream, chunkSizeIterator.next(), byteArray)
+          currentIterator = CS143Utils.getListFromBytes(byteArray).iterator.asScala
           true
         }
-
-        false
+        else //dummy we forgot this thats why it kept failing
+          false
       }
     }
   }
@@ -157,9 +169,11 @@ private[sql] class DiskPartition (
     inputClosed = true
 
     // TODO: write unwritten data
-    if (chunkSizes.size != 0 && chunkSizes.get(chunkSizes.size - 1) == getBytesFromList(data).size) {
+    if (measurePartitionSize() > 0) { //aka not empty
       spillPartitionToDisk()
       // Anything else besides spilling partition?
+      // Clear out data in partition
+      data.clear()
     }
 
     // Doing this conditional instead of above still only passes 1 test. *Shrug*
