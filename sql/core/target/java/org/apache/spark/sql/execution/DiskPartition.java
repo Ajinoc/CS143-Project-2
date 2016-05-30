@@ -14,7 +14,7 @@ public  class DiskPartition {
    * <p>
    * @param row the {@link Row} we are adding
    */
-  public  void insert (org.apache.spark.sql.catalyst.expressions.Row row) { throw new RuntimeException(); }
+  public  boolean insert (org.apache.spark.sql.catalyst.expressions.Row row) { throw new RuntimeException(); }
   /**
    * This method converts the data to a byte array and returns the size of the byte array
    * as an estimation of the size of the partition.

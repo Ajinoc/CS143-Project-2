@@ -2,19 +2,27 @@
 [0m[[0mdebug[0m] [0mCreate a single-thread test executor[0m
 [0m[[0mdebug[0m] [0mRunner for sbt.FrameworkWrapper produced 0 initial tasks for 0 tests.[0m
 [0m[[0mdebug[0m] [0mRunner for org.scalatest.tools.Framework produced 1 initial tasks for 1 tests.[0m
-[0m[[0mdebug[0m] [0m  Running TaskDef(org.apache.spark.sql.execution.DiskPartitionSuite, sbt.ForkMain$SubclassFingerscan@412b5cb0, false, [SuiteSelector])[0m
-[0m[[0minfo[0m] [0m[32mDiskPartitionSuite:[0m[0m
-[0m[[0minfo[0m] [0m[32m- disk partition (1 second, 664 milliseconds)[0m[0m
-[0m[[0minfo[0m] [0m[31m- close input *** FAILED *** (23 milliseconds)[0m[0m
-[0m[[0minfo[0m] [0m[31m  Expected exception org.apache.spark.SparkException to be thrown, but no exception was thrown. (DiskPartitionSuite.scala:32)[0m[0m
-[0m[[0minfo[0m] [0m[31m  org.scalatest.exceptions.TestFailedException:[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.Assertions$class.newAssertionFailedException(Assertions.scala:495)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.FunSuite.newAssertionFailedException(FunSuite.scala:1555)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.Assertions$class.intercept(Assertions.scala:1014)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.FunSuite.intercept(FunSuite.scala:1555)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.apache.spark.sql.execution.DiskPartitionSuite$$anonfun$2.apply$mcV$sp(DiskPartitionSuite.scala:32)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.apache.spark.sql.execution.DiskPartitionSuite$$anonfun$2.apply(DiskPartitionSuite.scala:23)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.apache.spark.sql.execution.DiskPartitionSuite$$anonfun$2.apply(DiskPartitionSuite.scala:23)[0m[0m
+[0m[[0mdebug[0m] [0m  Running TaskDef(org.apache.spark.sql.execution.CS143UtilsSuite, sbt.ForkMain$SubclassFingerscan@2489fbef, false, [SuiteSelector])[0m
+[0m[[0minfo[0m] [0m[32mCS143UtilsSuite:[0m[0m
+[0m[[0minfo[0m] [0m[31m- caching iterator *** FAILED *** (71 milliseconds)[0m[0m
+[0m[[0minfo[0m] [0m[31m  java.lang.ClassCastException: java.lang.Integer cannot be cast to org.apache.spark.sql.catalyst.expressions.Expression[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.sql.execution.CachingIteratorGenerator$$anonfun$apply$1$$anon$1$$anonfun$next$1.apply(CS143Utils.scala:214)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.sql.execution.CachingIteratorGenerator$$anonfun$apply$1$$anon$1$$anonfun$next$1.apply(CS143Utils.scala:214)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:244)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:244)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at scala.collection.Iterator$class.foreach(Iterator.scala:727)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at scala.collection.AbstractIterator.foreach(Iterator.scala:1157)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at scala.collection.IterableLike$class.foreach(IterableLike.scala:72)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.sql.catalyst.expressions.GenericRow.foreach(Row.scala:132)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at scala.collection.TraversableLike$class.map(TraversableLike.scala:244)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.sql.catalyst.expressions.GenericRow.map(Row.scala:132)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.sql.execution.CachingIteratorGenerator$$anonfun$apply$1$$anon$1.next(CS143Utils.scala:214)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.sql.execution.CachingIteratorGenerator$$anonfun$apply$1$$anon$1.next(CS143Utils.scala:189)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at scala.collection.Iterator$class.foreach(Iterator.scala:727)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.sql.execution.CachingIteratorGenerator$$anonfun$apply$1$$anon$1.foreach(CS143Utils.scala:189)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.sql.execution.CS143UtilsSuite$$anonfun$1.apply$mcV$sp(CS143UtilsSuite.scala:35)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.sql.execution.CS143UtilsSuite$$anonfun$1.apply(CS143UtilsSuite.scala:21)[0m[0m
+[0m[[0minfo[0m] [0m[31m  at org.apache.spark.sql.execution.CS143UtilsSuite$$anonfun$1.apply(CS143UtilsSuite.scala:21)[0m[0m
 [0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer$$anonfun$apply$1.apply$mcV$sp(Transformer.scala:22)[0m[0m
 [0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf$class.outcomeOf(OutcomeOf.scala:85)[0m[0m
 [0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)[0m[0m
@@ -54,11 +62,12 @@
 [0m[[0minfo[0m] [0m[31m  at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)[0m[0m
 [0m[[0minfo[0m] [0m[31m  at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)[0m[0m
 [0m[[0minfo[0m] [0m[31m  at java.lang.Thread.run(Thread.java:745)[0m[0m
+[0m[[0minfo[0m] [0m[32m- sequence with 1 UDF (4 milliseconds)[0m[0m
 [0m[[0mdebug[0m] [0m    Produced 0 nested tasks and 2 events.[0m
 [0m[[0mdebug[0m] [0mRunner for sbt.FrameworkWrapper produced 0 initial tasks for 0 tests.[0m
 [0m[[0mdebug[0m] [0mSummary for ScalaCheck not available.[0m
 [0m[[0minfo[0m] [0mScalaTest[0m
-[0m[[0minfo[0m] [0m[36mRun completed in 3 seconds, 162 milliseconds.[0m[0m
+[0m[[0minfo[0m] [0m[36mRun completed in 4 seconds, 349 milliseconds.[0m[0m
 [0m[[0minfo[0m] [0m[36mTotal number of tests run: 2[0m[0m
 [0m[[0minfo[0m] [0m[36mSuites: completed 1, aborted 0[0m[0m
 [0m[[0minfo[0m] [0m[36mTests: succeeded 1, failed 1, canceled 0, ignored 0, pending 0[0m[0m
@@ -66,5 +75,5 @@
 [0m[[0mdebug[0m] [0mSummary for JUnit not available.[0m
 [0m[[31merror[0m] [0mFailed: Total 2, Failed 1, Errors 0, Passed 1[0m
 [0m[[31merror[0m] [0mFailed tests:[0m
-[0m[[31merror[0m] [0m	org.apache.spark.sql.execution.DiskPartitionSuite[0m
+[0m[[31merror[0m] [0m	org.apache.spark.sql.execution.CS143UtilsSuite[0m
 [0m[[31merror[0m] [0m(sql/test:[31mtestOnly[0m) sbt.TestsFailedException: Tests unsuccessful[0m

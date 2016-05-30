@@ -105,8 +105,14 @@ object CS143Utils {
    * @return
    */
   def getUdfFromExpressions(expressions: Seq[Expression]): ScalaUdf = {
-    // IMPLEMENT ME
-    null
+    val udfMaybe = expressions.reverse.find {(p: Expression) => p.isInstanceOf[ScalaUdf]}
+    val udf = udfMaybe match {
+        case Some(u) => u
+        case None => null
+    }
+    if (udf != null)
+        return udf.asInstanceOf[ScalaUdf]
+    else return null
   }
 
   /**
@@ -189,12 +195,32 @@ object CachingIteratorGenerator {
 
         def hasNext() = {
           // IMPLEMENT ME
-          false
+          input.hasNext
         }
 
         def next() = {
           // IMPLEMENT ME
-          null
+          val result = scala.collection.mutable.ListBuffer.empty[Row]
+          var curRow = input.next
+
+          val preEval = preUdfProjection.apply(curRow)
+          val postEval = postUdfProjection.apply(curRow)
+
+          result += preEval
+
+          // KAITLYN TODO: Only evalute for new inputs?
+          // Some kind of adding input to cacheKeys each round and checking
+          // for previous matches? *insert shrug*
+          // This doesn't work for some reason
+          if (!curRow.map{x => x.asInstanceOf[Expression]}.sameElements(cacheKeys)) {
+             val evaluation = udf.eval(curRow).asInstanceOf[Row]
+             result += evaluation
+          }
+
+          result += postEval
+
+          Row.apply(result)
+
         }
       }
     }
