@@ -194,33 +194,37 @@ object CachingIteratorGenerator {
         val cache: JavaHashMap[Row, Row] = new JavaHashMap[Row, Row]()
 
         def hasNext() = {
-          // IMPLEMENT ME
+          // IMPLEMENT ME : YES
           input.hasNext
         }
 
         def next() = {
-          // IMPLEMENT ME
-          val result = scala.collection.mutable.ListBuffer.empty[Row]
-          var curRow = input.next
+          // IMPLEMENT ME : YES
+          if(!input.hasNext)
+            null
 
+          //Get the current row and its key projection
+          var curRow = input.next
+          val curKey = cacheKeyProjection.apply(curRow)
+
+          //Get values for pre/post UDF expressions
           val preEval = preUdfProjection.apply(curRow)
           val postEval = postUdfProjection.apply(curRow)
 
-          result += preEval
-
-          // KAITLYN TODO: Only evalute for new inputs?
-          // Some kind of adding input to cacheKeys each round and checking
-          // for previous matches? *insert shrug*
-          // This doesn't work for some reason
-          if (!curRow.map{x => x.asInstanceOf[Expression]}.sameElements(cacheKeys)) {
-             val evaluation = udf.eval(curRow).asInstanceOf[Row]
-             result += evaluation
+          //Get value for evaluation of this UDF
+          val evaluation = {
+            //If the key hasn't been used, create new one and save to key projection
+            if (!cache.containsKey(curKey)) {
+              val evals = udfProject(curKey)
+              cache.put(curKey, evals)
+              evals
+            }
+            else
+              cache.get(curKey)
           }
-
-          result += postEval
-
-          Row.apply(result)
-
+          //Sequence them all up and store it
+          val result = preEval ++ evaluation ++ postEval
+          Row.fromSeq(result)
         }
       }
     }

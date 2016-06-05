@@ -7,7 +7,7 @@
 [0m[[0mdebug[0m] [0m== resolving dependencies for org.apache.spark#spark-graphx_2.10;1.3.0-SNAPSHOT [compile][0m
 [0m[[0mdebug[0m] [0m== resolving dependencies org.apache.spark#spark-graphx_2.10;1.3.0-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [compile->default(compile)][0m
 [0m[[0minfo[0m] [0mResolving org.scala-lang#scala-library;2.10.4 ...[0m
-[0m[[0mdebug[0m] [0msbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@56bb8b62[0m
+[0m[[0mdebug[0m] [0msbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@78362438[0m
 [0m[[0mdebug[0m] [0msbt-chain: module revision found in cache: org.scala-lang#scala-library;2.10.4[0m
 [0m[[0mdebug[0m] [0m	found org.scala-lang#scala-library;2.10.4 in sbt-chain[0m
 [0m[[0mdebug[0m] [0m	[2.10.4] org.scala-lang#scala-library;2.10.4[0m
@@ -7130,7 +7130,7 @@
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.scala-lang#scala-compiler;2.10.4!scala-compiler.jar[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.scala-lang#jline;2.10.4!jline.jar[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.fusesource.jansi#jansi;1.4!jansi.jar[0m
-[0m[[0mdebug[0m] [0m:: resolution report :: resolve 2133ms :: artifacts dl 76ms[0m
+[0m[[0mdebug[0m] [0m:: resolution report :: resolve 1774ms :: artifacts dl 55ms[0m
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-graphx_2.10;1.3.0-SNAPSHOT compile produced in /home/ajinoc/Documents/Sophomore/Spring 16/CS143/CS143-Project-2/graphx/target/resolution-cache/reports/org.apache.spark-spark-graphx_2.10-compile.xml[0m
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-graphx_2.10;1.3.0-SNAPSHOT runtime produced in /home/ajinoc/Documents/Sophomore/Spring 16/CS143/CS143-Project-2/graphx/target/resolution-cache/reports/org.apache.spark-spark-graphx_2.10-runtime.xml[0m
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-graphx_2.10;1.3.0-SNAPSHOT test produced in /home/ajinoc/Documents/Sophomore/Spring 16/CS143/CS143-Project-2/graphx/target/resolution-cache/reports/org.apache.spark-spark-graphx_2.10-test.xml[0m
@@ -7144,5 +7144,5 @@
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-graphx_2.10;1.3.0-SNAPSHOT docs produced in /home/ajinoc/Documents/Sophomore/Spring 16/CS143/CS143-Project-2/graphx/target/resolution-cache/reports/org.apache.spark-spark-graphx_2.10-docs.xml[0m
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-graphx_2.10;1.3.0-SNAPSHOT pom produced in /home/ajinoc/Documents/Sophomore/Spring 16/CS143/CS143-Project-2/graphx/target/resolution-cache/reports/org.apache.spark-spark-graphx_2.10-pom.xml[0m
 [0m[[0mdebug[0m] [0m	report for org.apache.spark#spark-graphx_2.10;1.3.0-SNAPSHOT scala-tool produced in /home/ajinoc/Documents/Sophomore/Spring 16/CS143/CS143-Project-2/graphx/target/resolution-cache/reports/org.apache.spark-spark-graphx_2.10-scala-tool.xml[0m
-[0m[[0mdebug[0m] [0m	resolve done (2133ms resolve - 76ms download)[0m
+[0m[[0mdebug[0m] [0m	resolve done (1774ms resolve - 55ms download)[0m
 [0m[[0minfo[0m] [0mDone updating.[0m

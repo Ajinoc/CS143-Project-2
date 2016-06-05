@@ -4,7 +4,7 @@
 		module="spark-core_2.10"
 		revision="1.3.0-SNAPSHOT"
 		status="integration"
-		publication="20160522134443"
+		publication="20160604222622"
 	>
 		<description>
 		spark-core

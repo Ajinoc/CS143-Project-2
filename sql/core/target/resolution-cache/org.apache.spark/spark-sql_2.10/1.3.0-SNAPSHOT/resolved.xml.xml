@@ -4,7 +4,7 @@
 		module="spark-sql_2.10"
 		revision="1.3.0-SNAPSHOT"
 		status="integration"
-		publication="20160522134451"
+		publication="20160604222628"
 	>
 		<description>
 		spark-sql

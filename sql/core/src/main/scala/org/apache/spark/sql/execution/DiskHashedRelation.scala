@@ -36,12 +36,12 @@ protected [sql] final class GeneralDiskHashedRelation(partitions: Array[DiskPart
     extends DiskHashedRelation with Serializable {
 
   override def getIterator() = {
-    // IMPLEMENT ME
+    // IMPLEMENT ME : YES
     partitions.iterator
   }
 
   override def closeAllPartitions() = {
-    // IMPLEMENT ME
+    // IMPLEMENT ME : YES
     var iter: Iterator[DiskPartition] = getIterator()
     while(iter.hasNext)
       iter.next.closePartition()
@@ -66,18 +66,13 @@ private[sql] class DiskPartition (
    * @param row the [[Row]] we are adding
    */
   def insert(row: Row) = {
-    // IMPLEMENT ME
+    // IMPLEMENT ME : YES
     if(!inputClosed) {
-      //data.add(row)
-      // Do we need to update chunkSizes too? Nah... chunkSizes does a thing in the spillPartition... If we did it twice that could be weird.
-
       if (measurePartitionSize() > blockSize)
       {
         //Spill current partition, then make reset the partition.
-        //data.remove(row)
         spillPartitionToDisk()
         data.clear()
-        //data.add(row)
       }
       data.add(row)
     }
@@ -125,14 +120,14 @@ private[sql] class DiskPartition (
       var byteArray: Array[Byte] = null
 
       override def next() = {
-        // IMPLEMENT ME
+        // IMPLEMENT ME : YES
         if (currentIterator.hasNext) {
           currentIterator.next()
         } else null
       }
 
       override def hasNext() = {
-        // IMPLEMENT ME
+        // IMPLEMENT ME : YES
         //If the current interator in partition or data chunks have things, we still have more data
         currentIterator.hasNext || fetchNextChunk()
       }
@@ -144,15 +139,16 @@ private[sql] class DiskPartition (
        * @return true unless the iterator is empty.
        */
       private[this] def fetchNextChunk(): Boolean = {
-        // IMPLEMENT ME
+        // IMPLEMENT ME : YES
+        //If theres another chunk, grabe the bytes as an array
+        //Take those bytes and turn to a list 
+        //and set the current iterator to its start!
         if (chunkSizeIterator.hasNext) {
           byteArray = CS143Utils.getNextChunkBytes(inStream, chunkSizeIterator.next(), byteArray)
           currentIterator = CS143Utils.getListFromBytes(byteArray).iterator.asScala
           true
         }
-        else {//dummy we forgot this thats why it kept failing
-          false
-        }
+        else false
       }
 
     }
@@ -166,16 +162,11 @@ private[sql] class DiskPartition (
    * also be closed.
    */
   def closeInput() = {
-    // IMPLEMENT ME
+    // IMPLEMENT ME : YES
     inputClosed = true
 
-    // TODO: write unwritten data
     if (!data.isEmpty()){
-    //IF YOU CAN FIGURE OUT WHY IT'S NOT BELOW THAT'D BE GREAT.
-    //measurePartitionSize() > 0) { //aka not empty
       spillPartitionToDisk()
-      // Anything else besides spilling partition?
-      // Clear out data in partition
       data.clear()
     }
 
@@ -215,18 +206,18 @@ private[sql] object DiskHashedRelation {
                 keyGenerator: Projection,
                 size: Int = 64,
                 blockSize: Int = 64000) = {
-    // IMPLEMENT ME
+    // IMPLEMENT ME : YES
     //Create partition array
     val myPartitions: Array[DiskPartition] = new Array[DiskPartition](size)
 
     //Initialize that array
     for (i <- 0 to (size-1))
-      myPartitions(i) = new DiskPartition(i.toString() , blockSize)
+      myPartitions(i) = new DiskPartition("partition" + i.toString() , blockSize)
 
     //Start populating the array
     while(input.hasNext){
-      val row: Row = keyGenerator(input.next)
-      val index: Int = row.hashCode % size
+      val row = input.next()
+      val index = keyGenerator(row).hashCode % size
       myPartitions(index).insert(row)
     }
 
